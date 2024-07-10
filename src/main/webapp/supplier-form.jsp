@@ -1,7 +1,7 @@
 <<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Formulario de Proveedor</title>
+    <title>${supplier == null? "Agregar nuevo Proveedor" : "Editar Proveedor"}</title>
 </head>
 <body>
 <h2>${supplier == null ? 'Agregar Proveedor' : 'Editar Proveedor'}</h2>
@@ -18,9 +18,9 @@
     <label for="phone">Teléfono:</label>
     <input type="text" id="phone" name="phone" value="${supplier != null ? supplier.phone : ''}"><br>
     <label for="contact">Contacto:</label>
-    <input type="text" id="contact" name="contactName" value="${supplier != null ? supplier.contact : ''}"><br>
+    <input type="text" id="contact" name="contactName" value="${supplier != null ? supplier.contactName : ''}"><br>
     <label for="phoneContact">Teléfono de contacto:</label>
-    <input type="text" id="phoneContact" name="contactPhone" value="${supplier != null ? supplier.phoneContact : ''}"><br>
+    <input type="text" id="phoneContact" name="contactPhone" value="${supplier != null ? supplier.contactPhone : ''}"><br>
     <input type="submit" value="${supplier == null ? 'Agregar' : 'Actualizar'}">
 </form>
 <a href="supplier">Volver a la lista de proveedores</a>

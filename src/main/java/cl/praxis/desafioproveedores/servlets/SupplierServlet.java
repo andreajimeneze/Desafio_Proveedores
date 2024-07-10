@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/supplier")
@@ -39,6 +40,9 @@ try {
 
         case "insert":
             insertSupplier(req, res);
+            break;
+        case "edit":
+            showEditForm(req, res);
             break;
         case "update":
             updateSupplier(req, res);
@@ -80,10 +84,10 @@ try {
         String address = req.getParameter("address");
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
-        String contact = req.getParameter("contact");
+        String contactName = req.getParameter("contactName");
         String contactPhone = req.getParameter("contactPhone");
 
-        SupplierDTO newSupplier = new SupplierDTO(name, rut, address, email, phone, contact, contactPhone);
+        SupplierDTO newSupplier = new SupplierDTO(name, rut, address, email, phone, contactName, contactPhone);
         objSupplierService.insertSupplier(newSupplier);
         res.sendRedirect("supplier");
     }
@@ -96,7 +100,7 @@ try {
         String address = req.getParameter("address");
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
-        String contact = req.getParameter("contact");
+        String contact = req.getParameter("contactName");
         String contactPhone = req.getParameter("contactPhone");
 
         SupplierDTO user = new SupplierDTO(id, name, rut, address, email, phone, contact, contactPhone);
@@ -122,6 +126,14 @@ try {
 
     private void showNewForm(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-        req.getRequestDispatcher("supplier-view.jsp").forward(req, res);
+        req.getRequestDispatcher("supplier-form.jsp").forward(req, res);
+    }
+
+    private void showEditForm(HttpServletRequest req, HttpServletResponse res)
+        throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        SupplierDTO searchSupplier = objSupplierService.selectSupplierById(id);
+        req.setAttribute("supplier", searchSupplier);
+        req.getRequestDispatcher("supplier-form.jsp").forward(req, res);
     }
 }

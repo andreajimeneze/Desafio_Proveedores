@@ -32,10 +32,10 @@ public class SupplierDAOImpl implements SupplierDAO {
                String address = rs.getString("direccion");
                String email = rs.getString("correo");
                String phone = rs.getString("telefono");
-               String contact = rs.getString("contacto");
+               String contactName = rs.getString("contacto");
                String contactPhone = rs.getString("telefono_contacto");
 
-               supplier = new SupplierDTO(id, name, rut, address, email, phone, contact, contactPhone);
+               supplier = new SupplierDTO(id, name, rut, address, email, phone, contactName, contactPhone);
            }
        } catch(SQLException e) {
            throw new RuntimeException(e);
@@ -57,10 +57,10 @@ public class SupplierDAOImpl implements SupplierDAO {
                 String address = rs.getString("direccion");
                 String email = rs.getString("correo");
                 String phone = rs.getString("telefono");
-                String contact = rs.getString("contacto");
+                String contactName = rs.getString("contacto");
                 String contactPhone = rs.getString("telefono_contacto");
 
-                suppliers.add(new SupplierDTO(id, name, rut, address, email, phone, contact, contactPhone));
+                suppliers.add(new SupplierDTO(id, name, rut, address, email, phone, contactName, contactPhone));
             }
         } catch(SQLException e) {
             throw new RuntimeException(e);
@@ -73,7 +73,7 @@ public class SupplierDAOImpl implements SupplierDAO {
     public SupplierDTO insertSupplier(SupplierDTO supplier) {
         SupplierDTO newSupplier = null;
         try(Connection connection = MySQLConnection.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SUPPLIER)) {
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SUPPLIER,  PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, supplier.getName());
             preparedStatement.setString(2, supplier.getRut());
             preparedStatement.setString(3, supplier.getAddress());
@@ -82,7 +82,8 @@ public class SupplierDAOImpl implements SupplierDAO {
             preparedStatement.setString(6, supplier.getContactName());
             preparedStatement.setString(7, supplier.getContactPhone());
 
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
             if(rs.next()){
                 int id = rs.getInt(1);
 
