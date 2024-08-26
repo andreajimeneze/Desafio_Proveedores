@@ -8,9 +8,11 @@
     <title>${supplier == null? "Agregar nuevo Proveedor" : "Editar Proveedor"}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body class="container">
-<h2 class="text-center">${supplier == null ? 'Agregar Proveedor' : 'Editar Proveedor'}</h2>
+<h2 class="text-center my-4">${supplier == null ? 'Agregar Proveedor' : 'Editar Proveedor'}</h2>
 <form class="form my-4 p-4 rounded border row" action="supplier?action=${supplier == null ? 'insert' : 'update'}" method="post">
     <input type="hidden" name="id" value="${supplier != null ? supplier.id : ''}">
     <div class="mb-3 col-md-6 col-12">
@@ -41,11 +43,13 @@
         <label class="form-label" for="phoneContact">Teléfono de contacto:</label>
         <input class="form-control" type="text" id="phoneContact" name="contactPhone" value="${supplier != null ? supplier.contactPhone : ''}" required><br>
     </div>
-    <div>
+    <div class="d-flex justify-content-center my-3">
         <input type="submit" value="${supplier == null ? 'Agregar' : 'Actualizar'}" class="${supplier == null ? 'btn btn-primary' : 'btn btn-secondary'}">
     </div>
 </form>
-<a href="supplier" class="btn btn-success">Volver a la lista de proveedores</a>
+<div class="d-flex justify-content-end me-3">
+    <a href="supplier" class="btn btn-outline-success"><i class="bi bi-arrow-left-circle"> Volver</i></a>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
